@@ -4,7 +4,11 @@ let score = [0,0];
 function main(){
   let winner = "";
   let rounds = setRounds();
-
+  for (let round = 1; round <= rounds; round++){
+    winner = rpsRound();
+    score[winner]++;
+  }
+  alert("You have "+score[0]+" and I have "+ score[1]);
 }
 
 
@@ -18,9 +22,10 @@ function setRounds() {
 }
 
 /* RPS Round
- * plays a round of RPS and tells the winner
+ * Plays a round of RPS and tells the winner ("I" or "You") won.
+ * Returns the index (0,1) in score for the winner.
  * @param: none
- * @return:none
+ * @return: winner (0 or 1)
  */
 function rpsRound() {
     let u = "";
@@ -33,7 +38,10 @@ function rpsRound() {
         }
   }
   winner = findWinner(u,c);
-  alert("You chose " + u + " and I chose "+ c  +  " so " + winner  +  " won!");  
+  alert("You chose " + u + " and I chose "+ c  +  " so " + winner  +  " won!"); 
+  let winValues = ["You", "I"];
+  winner = winValues.indexOf(winner);
+  return winner; 
 }
 
 /* userturn
