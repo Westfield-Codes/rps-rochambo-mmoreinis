@@ -7,8 +7,11 @@ function main(){
   for (let round = 1; round <= rounds; round++){
     winner = rpsRound();
     score[winner]++;
+    if (score[0] > rounds/2 || score[1] > rounds/2) round = rounds;
   }
-  alert("You have "+score[0]+" and I have "+ score[1]);
+  let gameWinner = "I";
+  if () gameWinner = "you";
+  alert("You have "+score[0]+" and I have "+ score[1] + " so " + gameWinner + " won.");
 }
 
 
