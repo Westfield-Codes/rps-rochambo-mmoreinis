@@ -36,6 +36,10 @@ body {
     border:5px solid red;
 }
 
+#popup p {
+    text-align:center;
+}
+
 #rock{
     background-image : url('rock.png');
     width:300px;
@@ -50,38 +54,35 @@ body {
     height:300px;
     background-size: contain;
     background-repeat: no-repeat;
-    
 }
     
 .move:hover{
-  border: 1px solid red;
-  
-
-
-
+    border: 3px solid red;
 }
 #scoreBoard{
-text-align: center;
-        margin-top: 50px;
-        font-size: 30px;
-        position: relative;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 20px;
+    text-align: center;
+    margin-top: 50px;
+    font-size: 30px;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
 }
-#player{
-position: relative;
-right:370px;
-top:600px;
-}
-#computer{
-position: relative;
-left:130px;
-top:600px;
-}
-#roundNumber{
-position: relative;
-left:100px;
 
+#player{
+    position: relative;
+    right:370px;
+    top:600px;
+}
+
+#computer{
+    position: relative;
+    left:130px;
+    top:600px;
+}
+
+#roundNumber{
+    position: relative;
+    left:100px;
 }

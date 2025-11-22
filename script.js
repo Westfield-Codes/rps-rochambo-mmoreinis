@@ -73,8 +73,7 @@ function cpuTurn(u) {
       let combo = u + c;
       let winner = findWinner(combo);
       let cmove = moveWords[turn];
-      let message = "You chose " + "(" + u + ")" + " and I chose " + "(" + cmove + ")" + " so " + winner + " won!";
-      makePopUp(message, updateScore(winner));
+      let message = "You chose " + u + " and I chose " + cmove + " so " + winner + " won!";      makePopUp(message, updateScore(winner));
    }
 }
 
