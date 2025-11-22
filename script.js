@@ -65,37 +65,41 @@ function cpuTurn(u) {
    let turn = Math.floor(Math.random() * 3);
    c = moves[turn];
    if(u == c) {
-      makePopUp("We both chose " + moveWords[turn]);
+      let message = "We both chose " + moveWords[turn];
+      makePopUp(message, buildConsole);
     }
     else {
+      round++;
       let combo = u + c;
-      console.log("combo " + combo)
       let winner = findWinner(combo);
       let cmove = moveWords[turn];
-      let roundWinner = document.createElement("div");
-      roundWinner.innerHTML= "You chose " + "(" + u + ")" + " and I chose " + "(" + cmove + ")" + " " + winner + " won!";
-      round++;
+      let message = "You chose " + "(" + u + ")" + " and I chose " + "(" + cmove + ")" + " so " + winner + " won!";
+      makePopUp(message, updateScore(winner));
    }
 }
 
-function makePopUp(message){
+function makePopUp(message,target){
    let popup = document.createElement("div");
    popup.id="popup";
-   popup.addEventListener("click", closePopup);
+   popup.addEventListener('click', () => {
+      closePopup(target); 
+    });
    let popP = document.createElement("p");
    popP.innerHTML = message;
    popup.appendChild(popP);
    document.body.insertBefore(popup, board);
 }
 
-function closePopup(){
+function closePopup(target){
    document.getElementById("popup").remove();
-   buildConsole();
+   target;
 }
 
-function scoreBoard(winner) {
-   if (winner == "I") score[1] += 1;
-   else score[0] += 1;
+function updateScore(winner) {
+   if (winner == "I") score[1]++;
+   else score[0]++;
+   scoreBoard.innerHTML = "";
+   buildScoreBoard();
 }
 
 function finalWinner() {
@@ -104,20 +108,6 @@ function finalWinner() {
    else endWinner = "I";
    return endWinner;
 }
-
-
-function userTurn() {
-   let choice = prompt("r, p, s?")
-   let moves = ["r", "p", "s"];
-   if (!moves.includes(choice)) {
-      alert("Invalid Input!")
-      return userTurn();
-   } 
-   else {
-      return choice;
-   }
-}
-
 
 function findWinner(combo) {
    let match = "";
