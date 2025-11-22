@@ -21,6 +21,11 @@ function main() {
    board.appendChild(roundsButton);
 }
 
+function setRounds() {
+   rounds = parseInt(document.getElementById("roundsBox").value);
+   buildScoreBoard();
+}
+
 function buildScoreBoard(){
    let roundNumber = document.createElement("p");
    roundNumber.id="roundNumber";
@@ -35,6 +40,7 @@ function addScoreBox(entity, entityLabel, index){
    myDiv.id = entity;
    myDiv.innerHTML = entityLabel + ": " + score[index];
    scoreBoard.appendChild(myDiv);
+   buildConsole();
 }
 
 function buildConsole() { 
@@ -45,8 +51,7 @@ function buildConsole() {
 }
 
 function addPlayButton(hand, move){
-    let playButton = document.createElement("div");
-    playButton = document.createElement("button");
+    let playButton = document.createElement("button");
     playButton.id=hand;
     playButton.innerHTML=hand;
     playButton.addEventListener('click', () => {
@@ -56,30 +61,36 @@ function addPlayButton(hand, move){
     board.appendChild(playButton);
 }
 
-function setRounds() {
-  rounds = parseInt(document.getElementById("roundsBox").value);
-  buildConsole();
-  buildScoreBoard();
-}
-
-function cpuTurn(move) {
-   console.log("Move: " + move);
-   let u = moves[moveWords.indexOf(move)];
+function cpuTurn(u) {
    let turn = Math.floor(Math.random() * 3);
    c = moves[turn];
    if(u == c) {
-      console.log("CPUTurn")
-      clearConsole();
-      buildConsole();
+      makePopUp("We both chose " + moveWords[turn]);
     }
-    else{
+    else {
       let combo = u + c;
+      console.log("combo " + combo)
       let winner = findWinner(combo);
       let cmove = moveWords[turn];
-      let RoundWinner = document.createElement("div");
-      RoundWinner.innerHTML= "You chose " + "(" + move + ")" + " and I chose " + "(" + cmove + ")" + " " + winner + " won!";
+      let roundWinner = document.createElement("div");
+      roundWinner.innerHTML= "You chose " + "(" + u + ")" + " and I chose " + "(" + cmove + ")" + " " + winner + " won!";
       round++;
    }
+}
+
+function makePopUp(message){
+   let popup = document.createElement("div");
+   popup.id="popup";
+   popup.addEventListener("click", closePopup);
+   let popP = document.createElement("p");
+   popP.innerHTML = message;
+   popup.appendChild(popP);
+   document.body.insertBefore(popup, board);
+}
+
+function closePopup(){
+   document.getElementById("popup").remove();
+   buildConsole();
 }
 
 function scoreBoard(winner) {
@@ -87,11 +98,11 @@ function scoreBoard(winner) {
    else score[0] += 1;
 }
 
-function FinalWinner() {
-   let finalWinner = "";
-   if (score[0] > score[1]) finalWinner = "You";
-   else finalWinner = "I";
-   return finalWinner;
+function finalWinner() {
+   let endWinner = "";
+   if (score[0] > score[1]) endWinner = "You";
+   else endWinner = "I";
+   return endWinner;
 }
 
 
@@ -107,10 +118,6 @@ function userTurn() {
    }
 }
 
-function clearConsole(){
-   board.innerHTML="";
-   board.innerHTML="We both chose the same thing";
-}
 
 function findWinner(combo) {
    let match = "";
