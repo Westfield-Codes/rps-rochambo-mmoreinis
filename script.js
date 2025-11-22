@@ -99,14 +99,9 @@ function updateScore(winner) {
    if (winner == "I") score[1]++;
    else score[0]++;
    scoreBoard.innerHTML = "";
+   // What if one player has won more than half the rounds? 
+   // What if we are out of rounds?
    buildScoreBoard();
-}
-
-function finalWinner() {
-   let endWinner = "";
-   if (score[0] > score[1]) endWinner = "You";
-   else endWinner = "I";
-   return endWinner;
 }
 
 function findWinner(combo) {
@@ -127,4 +122,11 @@ function findWinner(combo) {
       }
    }
    return winner;
+}
+
+function finalWinner() {
+   let endWinner = "";
+   if (score[0] > score[1]) endWinner = "You";
+   else endWinner = "I";
+   return endWinner;
 }
